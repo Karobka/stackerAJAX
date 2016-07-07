@@ -44,7 +44,7 @@ var showAnswerer = function(answerer) {
 	userScore.text(answerer.score);
 	
 	var answerer = answerResult.find('.display-name');
-	answerer.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + answerer.user.user_id + answerer.user.display_name + '</a></p>');	
+	answerer.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + answerer.user_id + answerer.display_name + '</a></p>');	
 }
 
 
@@ -109,10 +109,9 @@ var getTopAnswerer = function(tagtopic) {
 		url: "http://api.stackexchange.com/2.2/tags/" + tagtopic + "/top-answerers/all_time?site=stackoverflow",
 		data: toprequest,
 		type: "GET"
-	})
-	.done(function(results){
-		var searchResults = showSearchResults(toprequest, results.items.length);
-		$(".search-results").html(searchResults);
+	}).done(function(results){
+		var answererResults = showSearchResults(toprequest.tag, results.items.length);
+		$(".search-results").html(answererResults);
 		$.each(results.items, function(i, item) {
 			var displayname = showAnswerer(item);
 			$('.results').append(displayname);
