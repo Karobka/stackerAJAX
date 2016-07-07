@@ -43,8 +43,9 @@ var showAnswerer = function(answerer) {
 	var userScore =  answerResult.find('.user-score');
 	userScore.text(answerer.score);
 	
-	var answerer = answerResult.find('.display-name');
-	answerer.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + answerer.user_id + answerer.display_name + '</a></p>');	
+	var answers = answerResult.find('.display-name');
+	answers.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + answerer.user_id + answerer.display_name + '</a></p>');	
+	return answerResult;
 }
 
 
@@ -112,8 +113,8 @@ var getTopAnswerer = function(tagtopic) {
 	}).done(function(results){
 		var answererResults = showSearchResults(toprequest.tag, results.items.length);
 		$(".search-results").html(answererResults);
-		$.each(results.items, function(i, item) {
-			var displayname = showAnswerer(item);
+		$.each(results.items, function(i, items) {
+			var displayname = showAnswerer(items);
 			$('.results').append(displayname);
 		});
 	})
