@@ -31,6 +31,25 @@ var showQuestion = function(question) {
 	return result;
 };
 
+var showAnswerer = function(answerer) {
+	var answerResult = $('.templates .answerer').clone();
+	var answererElement = answerResult.find('.display-name a');
+	answererElement.attr('href', answerer.user.link);
+	answererElement.text(answerer.user.display_name);
+
+	var acceptRate = answerResult.find('.accept-rate');
+	acceptRate.text(answerer.user.accept_rate);
+	
+	var userScore =  answerResult.find('.user-score');
+	userScore.text(answerer.score);
+	var userId = answerer.user.user_id;
+	var answerer = result.find('.display-name');
+	answerer.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + userId + display_name);	
+}
+
+
+
+
 
 // this function takes the results object from StackOverflow
 // and returns the number of results and tags to be appended to DOM
@@ -38,6 +57,7 @@ var showSearchResults = function(query, resultNum) {
 	var results = resultNum + ' results for <strong>' + query + '</strong>';
 	return results;
 };
+
 
 // takes error string and turns it into displayable DOM element
 var showError = function(error){
@@ -83,15 +103,20 @@ var getUnanswered = function(tags) {
 
 var getTopAnswerer = function(tagtopic) {
 	var toprequest = {
-		tag: tagtopic,
-		period: 'all_time',
-		site: 'stackoverflow',
+		tag: tagtopic
 	}
 	$.ajax({
-		url: "http://api.stackexchange.com/2.2/tags/",
+		url: "http://api.stackexchange.com/2.2/tags/" + tagtopic + "/top-answerers/all_time?site=stackoverflow",
 		data: toprequest,
-		dataType: "jsonp",
 		type: "GET"
+	})
+	.done(function(results){
+		var searchResults = showSearchResults(toprequest, results.items.length);
+		$(".search-results").html(searchResults);
+		$.each(results.items, function(i, item) {
+			var displayname = showAnswerer(item);
+			$('.results').append(displayname);
+		});
 	})
 }
 
