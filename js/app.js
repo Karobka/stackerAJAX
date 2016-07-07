@@ -105,7 +105,7 @@ var getTopAnswerer = function(tagtopic) {
 		tag: tagtopic
 	}
 	$.ajax({
-		url: "http://api.stackexchange.com/2.2/tags/" + tagtopic + "/top-answerers/all_time?site=stackoverflow",
+		url: "https://api.stackexchange.com/2.2/tags/" + tagtopic + "/top-answerers/all_time?site=stackoverflow",
 		data: toprequest,
 		type: "GET"
 	}).done(function(results){
