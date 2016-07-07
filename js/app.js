@@ -33,18 +33,16 @@ var showQuestion = function(question) {
 
 var showAnswerer = function(answerer) {
 	var answerResult = $('.templates .answerer').clone();
-	var answererElement = answerResult.find('.display-name a');
-	answererElement.attr('href', answerer.user.link);
-	answererElement.text(answerer.user.display_name);
+	var answererName = answerResult.find('.display-name a');
+	answererName.attr('href', answerer.user.link);
+	answererName.text(answerer.user.display_name);
 
 	var acceptRate = answerResult.find('.accept-rate');
 	acceptRate.text(answerer.user.accept_rate);
 	
-	var userScore =  answerResult.find('.user-score');
+	var userScore = answerResult.find('.user-score');
 	userScore.text(answerer.score);
 	
-	var answers = answerResult.find('.display-name');
-	answers.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + answerer.user_id + answerer.display_name + '</a></p>');	
 	return answerResult;
 }
 
