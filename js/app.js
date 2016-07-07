@@ -42,9 +42,9 @@ var showAnswerer = function(answerer) {
 	
 	var userScore =  answerResult.find('.user-score');
 	userScore.text(answerer.score);
-	var userId = answerer.user.user_id;
-	var answerer = result.find('.display-name');
-	answerer.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + userId + display_name);	
+	
+	var answerer = answerResult.find('.display-name');
+	answerer.html('<p> Name: <a target="_blank" ' + 'href="http://stackoverflow.com/users/"' + answerer.user.user_id + answerer.user.display_name + '</a></p>');	
 }
 
 
